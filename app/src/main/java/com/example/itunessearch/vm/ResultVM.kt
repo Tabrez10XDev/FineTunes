@@ -11,6 +11,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.itunessearch.app.DashboardApplication
+import com.example.itunessearch.data.Artist
+import com.example.itunessearch.data.ArtistsResults
 import com.example.itunessearch.data.Result
 import com.example.itunessearch.room.ResultRepository
 import com.example.itunessearch.util.Resource
@@ -24,40 +26,44 @@ class ResultVM
      ) : AndroidViewModel(app)
 {
 
-    init {
-        Log.d("Lj-final","four")
 
-        startFetchingResults("Taylor Swift")
-
-    }
 
     var RetrievedResponse : Result ?= null
     val RetrievedResults : MutableLiveData<Resource<Result>> = MutableLiveData()
+    var RetrievedArtists : MutableLiveData<Resource<ArtistsResults>> = MutableLiveData()
+    var RetrievedArtistResponse : ArtistsResults ?= null
 
     private suspend fun getResults(term: String){
-        Log.d("Lj-final","pre")
 
-//        RetrievedResults.postValue(Resource.Loading())
-        Log.d("Lj-final","past")
-
+        RetrievedResults.postValue(Resource.Loading())
         try {
+
             if(hasInternetConnection()){
-                Log.d("Lj-final","if")
-
                 val response = resultRepository.getResults(term)
-                RetrievedResults.postValue(handleResponse(response))
-                Log.d("Lj-final","if")
-
+                RetrievedResults.postValue(handleResultsResponse(response))
             }
             else{
-                Log.d("Lj-final","else")
-
                 RetrievedResults.postValue(Resource.Error("No Internet Connection"))
             }
         }catch(e : Exception){
-            Log.d("Lj-final",e.message)
-
             RetrievedResults.postValue(Resource.Error("Catchable"))
+        }
+    }
+
+    private suspend fun getArtists(term: String){
+
+        RetrievedArtists.postValue(Resource.Loading())
+        try {
+
+            if(hasInternetConnection()){
+                val response = resultRepository.getArtists(term)
+                RetrievedArtists.postValue(handleArtistsResponse(response))
+            }
+            else{
+                RetrievedArtists.postValue(Resource.Error("No Internet Connection"))
+            }
+        }catch(e : Exception){
+            RetrievedArtists.postValue(Resource.Error("Catchable"))
         }
     }
 
@@ -68,14 +74,31 @@ class ResultVM
 
     }
 
+    fun startFetchingArtists(term : String) = viewModelScope.launch {
+        getArtists(term)
+    }
 
-    private fun handleResponse(response: Response<Result>) : Resource<Result> {
+
+    private fun handleResultsResponse(response: Response<Result>) : Resource<Result> {
         if(response.isSuccessful){
             response.body()?.let {
                     RetrievedResponse = it
 
 
                 return Resource.Success(RetrievedResponse ?: it)
+            }
+        }
+        return Resource.Error(response.message())
+
+    }
+
+    private fun handleArtistsResponse(response: Response<ArtistsResults>) : Resource<ArtistsResults> {
+        if(response.isSuccessful){
+            response.body()?.let {
+                RetrievedArtistResponse = it
+
+
+                return Resource.Success(RetrievedArtistResponse ?: it)
             }
         }
         return Resource.Error(response.message())
