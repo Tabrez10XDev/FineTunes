@@ -11,9 +11,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.itunessearch.app.DashboardApplication
-import com.example.itunessearch.data.Artist
 import com.example.itunessearch.data.ArtistsResults
-import com.example.itunessearch.data.Result
 import com.example.itunessearch.room.ResultRepository
 import com.example.itunessearch.util.Resource
 import kotlinx.coroutines.launch

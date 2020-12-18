@@ -1,0 +1,76 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "17ba7f381c22f2f85e9fade2d9503cce",
+    "entities": [
+      {
+        "tableName": "Artists",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`amgArtistId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `artistId` INTEGER NOT NULL, `artistLinkUrl` TEXT NOT NULL, `artistName` TEXT NOT NULL, `artistType` TEXT NOT NULL, `primaryGenreId` INTEGER NOT NULL, `primaryGenreName` TEXT NOT NULL, `wrapperType` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "amgArtistId",
+            "columnName": "amgArtistId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "artistId",
+            "columnName": "artistId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "artistLinkUrl",
+            "columnName": "artistLinkUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "artistName",
+            "columnName": "artistName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "artistType",
+            "columnName": "artistType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "primaryGenreId",
+            "columnName": "primaryGenreId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "primaryGenreName",
+            "columnName": "primaryGenreName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wrapperType",
+            "columnName": "wrapperType",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "amgArtistId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '17ba7f381c22f2f85e9fade2d9503cce')"
+    ]
+  }
+}

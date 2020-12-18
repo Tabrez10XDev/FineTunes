@@ -28,7 +28,7 @@ class SoloArtist : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = (activity as Dashboard).viewModel
-        var args : SoloArtistArgs = SoloArtistArgs.fromBundle(this.arguments!!)
+        var args : SoloArtistArgs = SoloArtistArgs.fromBundle(this.requireArguments())
 
         var artist = args.artist
         webView.apply {

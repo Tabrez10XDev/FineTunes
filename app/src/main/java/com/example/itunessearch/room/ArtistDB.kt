@@ -4,18 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-
+//
 //@Database(
-//    entities = [Article::class],
+//    entities = [Artist::class],
 //    version = 2
 //)
-//abstract class ArticleDB : RoomDatabase() {
+//abstract class ArtistDB : RoomDatabase() {
 //
-//    abstract fun getArticleDao() : ArticleDao
+//    abstract fun getArtistDao() : ArtistDao
 //
 //    companion object{
 //        @Volatile
-//        private var instance: ArticleDB ?= null
+//        private var instance: ArtistDB ?= null
 //
 //        private val LOCK = Any()
 //
@@ -28,8 +28,8 @@ import androidx.room.RoomDatabase
 //        private fun createDB(context: Context)=
 //            Room.databaseBuilder(
 //                context.applicationContext,
-//                ArticleDB::class.java,
-//                "article_db.db")
+//                ArtistDB::class.java,
+//                "artist_db.db")
 //                .build()
 //    }
 //}
