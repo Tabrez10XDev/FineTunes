@@ -9,10 +9,12 @@ import retrofit2.http.Query
 interface SearchAPI {
     @GET("search")
     suspend fun getResults(
-        @Query("term")
-        term: String,
-        @Query("media")
-        media: String = "music"
+        @Query("artistID")
+        artistID: String,
+        @Query("entity")
+        media: String = "album",
+        @Query("limit")
+        limit : Int = 3
 
     ): Response<Result>
 

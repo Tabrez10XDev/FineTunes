@@ -8,8 +8,8 @@ class ResultRepository
 //    )
     {
 
-        suspend fun getResults(term : String)=
-            RetrofitInstance.api.getResults(term = term)
+        suspend fun getResults(artistID : String)=
+            RetrofitInstance.api.getResults(artistID = artistID)
 
         suspend fun getArtists(term : String)=
             RetrofitInstance.api.getArtists(term = term)

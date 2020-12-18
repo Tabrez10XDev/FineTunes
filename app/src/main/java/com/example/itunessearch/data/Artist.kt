@@ -1,5 +1,8 @@
 package com.example.itunessearch.data
 
+import java.io.Serializable
+
+
 data class Artist(
     val amgArtistId: Int,
     val artistId: Int,
@@ -9,4 +12,4 @@ data class Artist(
     val primaryGenreId: Int,
     val primaryGenreName: String,
     val wrapperType: String
-)
+) : Serializable

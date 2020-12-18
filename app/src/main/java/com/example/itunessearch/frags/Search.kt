@@ -1,14 +1,17 @@
 package com.example.itunessearch.frags
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.itunessearch.R
 import com.example.itunessearch.adap.SearchAdapter
@@ -54,6 +57,14 @@ class Search : Fragment() {
                     }
                 }
             }
+        }
+
+        searchAdapter.setOnItemClickListener {
+            hideSoftKeyboard()
+            val bundle = Bundle().apply {
+                putSerializable("artist",it)
+            }
+            findNavController().navigate(R.id.action_search_to_soloArtist,bundle)
         }
 
 //        viewModel.RetrievedResults.observe(viewLifecycleOwner, Observer { response ->
@@ -111,6 +122,14 @@ class Search : Fragment() {
         searchRV.apply {
             adapter = searchAdapter
             layoutManager = LinearLayoutManager(activity)
+        }
+    }
+
+    private fun hideSoftKeyboard(){
+    val view = activity?.currentFocus
+    view?.let { v ->
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.hideSoftInputFromWindow(v.windowToken, 0)
         }
     }
 }

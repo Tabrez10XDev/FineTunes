@@ -8,10 +8,27 @@
         android:id="@+id/search"
         android:name="com.example.itunessearch.frags.Search"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_search_to_soloArtist"
+            app:destination="@id/soloArtist" />
+    </fragment>
     <fragment
         android:id="@+id/saved"
         android:name="com.example.itunessearch.frags.Saved"
         android:label="fragment_saved"
-        tools:layout="@layout/fragment_saved" />
+        tools:layout="@layout/fragment_saved" >
+        <action
+            android:id="@+id/action_saved_to_soloArtist"
+            app:destination="@id/soloArtist" />
+    </fragment>
+    <fragment
+        android:id="@+id/soloArtist"
+        android:name="com.example.itunessearch.frags.SoloArtist"
+        android:label="fragment_solo_artist"
+        tools:layout="@layout/fragment_solo_artist" >
+        <argument
+            android:name="artist"
+            app:argType="com.example.itunessearch.data.Artist" />
+    </fragment>
 </navigation>

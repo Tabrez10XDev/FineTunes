@@ -28,27 +28,10 @@ class ResultVM
 
 
 
-    var RetrievedResponse : Result ?= null
-    val RetrievedResults : MutableLiveData<Resource<Result>> = MutableLiveData()
+
     var RetrievedArtists : MutableLiveData<Resource<ArtistsResults>> = MutableLiveData()
     var RetrievedArtistResponse : ArtistsResults ?= null
 
-    private suspend fun getResults(term: String){
-
-        RetrievedResults.postValue(Resource.Loading())
-        try {
-
-            if(hasInternetConnection()){
-                val response = resultRepository.getResults(term)
-                RetrievedResults.postValue(handleResultsResponse(response))
-            }
-            else{
-                RetrievedResults.postValue(Resource.Error("No Internet Connection"))
-            }
-        }catch(e : Exception){
-            RetrievedResults.postValue(Resource.Error("Catchable"))
-        }
-    }
 
     private suspend fun getArtists(term: String){
 
@@ -67,30 +50,14 @@ class ResultVM
         }
     }
 
-    fun startFetchingResults(term : String) = viewModelScope.launch {
-        Log.d("Lj-final","three")
 
-        getResults(term)
-
-    }
 
     fun startFetchingArtists(term : String) = viewModelScope.launch {
         getArtists(term)
     }
 
 
-    private fun handleResultsResponse(response: Response<Result>) : Resource<Result> {
-        if(response.isSuccessful){
-            response.body()?.let {
-                    RetrievedResponse = it
 
-
-                return Resource.Success(RetrievedResponse ?: it)
-            }
-        }
-        return Resource.Error(response.message())
-
-    }
 
     private fun handleArtistsResponse(response: Response<ArtistsResults>) : Resource<ArtistsResults> {
         if(response.isSuccessful){
