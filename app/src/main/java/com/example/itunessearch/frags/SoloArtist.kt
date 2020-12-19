@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
+import android.widget.Toast
 import com.example.itunessearch.R
 import com.example.itunessearch.app.Dashboard
 import com.example.itunessearch.vm.ResultVM
@@ -38,9 +39,11 @@ class SoloArtist : Fragment() {
         }
 
 
-//        fab.setOnClickListener{
-//            viewModel.saveArticle(article)
-//            Toast.makeText(activity,"Article Saved",Toast.LENGTH_SHORT).show()
-//        }
+        fab.setOnClickListener{
+            viewModel.saveArtist(artist)
+            Toast.makeText(activity,"Artist Saved",Toast.LENGTH_SHORT).show()
+        }
+
+
     }
 }

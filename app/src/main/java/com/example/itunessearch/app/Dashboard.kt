@@ -11,6 +11,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.itunessearch.R
+import com.example.itunessearch.room.ArtistDB
 import com.example.itunessearch.room.ResultRepository
 import com.example.itunessearch.util.Resource
 import com.example.itunessearch.vm.ResultVM
@@ -26,7 +27,7 @@ class Dashboard : AppCompatActivity() {
         setTheme(R.style.AppTheme)
 
         setContentView(R.layout.activity_main)
-        val repository = ResultRepository()
+        val repository = ResultRepository(ArtistDB(this))
         Log.d("Lj-final","one")
 
         val viewModelProviderFactory = ResultVMProviderFactory(repository,application)

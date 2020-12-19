@@ -11,6 +11,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.itunessearch.app.DashboardApplication
+import com.example.itunessearch.data.Artist
 import com.example.itunessearch.data.ArtistsResults
 import com.example.itunessearch.room.ResultRepository
 import com.example.itunessearch.util.Resource
@@ -41,6 +42,7 @@ class ResultVM
                 RetrievedArtists.postValue(handleArtistsResponse(response))
             }
             else{
+                getSavedArtists()
                 RetrievedArtists.postValue(Resource.Error("No Internet Connection"))
             }
         }catch(e : Exception){
@@ -53,6 +55,12 @@ class ResultVM
     fun startFetchingArtists(term : String) = viewModelScope.launch {
         getArtists(term)
     }
+
+    fun saveArtist(artist: Artist) = viewModelScope.launch {
+        resultRepository.upsert(artist)
+    }
+
+    fun getSavedArtists()= resultRepository.getSavedArtists()
 
 
 
@@ -70,8 +78,11 @@ class ResultVM
 
     }
 
+    fun deleteArtist(artist : Artist) = viewModelScope.launch {
+        resultRepository.deleteArtist(artist)
+    }
 
-    private fun hasInternetConnection(): Boolean{
+    fun hasInternetConnection(): Boolean{
         Log.d("Lj-final","Last but")
         val connectivityManager = getApplication<DashboardApplication>().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         Log.d("Lj-final","Lastttt")

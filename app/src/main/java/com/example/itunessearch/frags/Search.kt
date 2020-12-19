@@ -107,6 +107,8 @@ class Search : Fragment() {
                     response.message?.let{
                         Log.d("Lj-final", "Error: $it")
                         Toast.makeText(activity,"Error $it", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity,"Showing Saved Artists", Toast.LENGTH_SHORT).show()
+
                     }
                 }
                 is Resource.Loading->{
